@@ -18,15 +18,24 @@ const database = firebase.database();
 document.getElementById('employeeForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const employeeId = document.getElementById('employeeId').value;
+    const name = document.getElementById('employeeName').value;
+    const kaizen = document.getElementById('kaizen').value;
 
     const employeeRef = database.ref('employees/' + employeeId);
     employeeRef.get().then((snapshot) => {
+        let count = 1;
         if (snapshot.exists()) {
-            employeeRef.set(snapshot.val() + 1);
-        } else {
-            employeeRef.set(1);
+            count = snapshot.val().count + 1;
         }
+        let data = {
+            name,
+            count,
+            kaizen
+        };
+        employeeRef.set(data);
+        alert("Data Saved");
     });
+
 
     document.getElementById('employeeForm').reset();
 });

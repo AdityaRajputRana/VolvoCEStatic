@@ -18,13 +18,15 @@ let chart;
 
 const createChart = (data) => {
     if (chart) chart.destroy();
+    let values = Object.values(data).map(d=>d.count);
+    console.log(data);
     chart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: Object.keys(data),
             datasets: [{
                 label: '# of Submissions',
-                data: Object.values(data),
+                data: values,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
